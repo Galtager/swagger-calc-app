@@ -8,7 +8,7 @@ const authUtils = require('../utils/auth');
 module.exports.postAuth = async function postAuth(req, res, next, body) {
   let response;
   try {
-    response = await AuthService.postAuth(body)
+    response = AuthService.postAuth(body)
   } catch (error) {
     response = error
   }
@@ -22,7 +22,7 @@ module.exports.postCalc = async function postCalc(req, res, next, body, op) {
   try {
     // this function throw error if jwt token is invalid - used as middleware 
     authUtils.validateToken(req)
-    response = await CalcService.postCalc(body, op)
+    response = CalcService.postCalc(body, op)
   } catch (error) {
     response = error
   } finally {

@@ -4,12 +4,15 @@ How to run this?
 
 Install Docker Compose (https://docs.docker.com/compose/install/)
 Clone this repository
-Build express app image with docker-compose build
+Build swagger-express app image with docker-compose build
 
-Run all containers with docker-compose up
-To run it in the backgroung use d flag docker-compose up -d
+To run this application use the follow command :
+docker-compose up
 
-To stop the containers use docker-compose stop
-To delete the containers use docker-compose down
+To stop the containers use the follow command :
+docker-compose stop
 
-Test the api through http://localhost:4000
+To delete the container use the follow command :
+docker-compose down
+
+Test the api through http://localhost:8080

@@ -8,10 +8,8 @@ const jwt = require('jsonwebtoken');
  * returns authResult
  **/
 exports.postAuth = function (body) {
-    return new Promise(function (resolve, reject) {
-        const { email } = body;
-        // Generate JWT
-        const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: "1800s" })
-        resolve({ message: "You are logged in", token });
-    });
+    const { email } = body;
+    // Generate JWT
+    const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: "1800s" })
+    return { message: "You are logged in", token };
 }
