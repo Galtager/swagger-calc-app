@@ -1,5 +1,5 @@
 const utils = require('../utils/writer.js');
-const calcUtils = require('../utils/calculator.js');
+const { checkDivideWithZero, calculate } = require('../utils/calculator.js');
 
 /**
  *
@@ -12,13 +12,13 @@ exports.postCalc = function (body, op) {
         const { num1, num2 } = body;
 
         // Guard - illegal math operation
-        const isDivideWithZero = calcUtils.checkDivideWithZero(num2, op)
+        const isDivideWithZero = checkDivideWithZero(num2, op)
 
         if (isDivideWithZero) {
             reject(utils.respondWithCode(400, { message: "Cant divide number with 0" }))
         }
         // Pass the check , calculate the result
-        const result = calcUtils.calculate(num1, num2, op)
+        const result = calculate(num1, num2, op)
 
         resolve({ result });
     });

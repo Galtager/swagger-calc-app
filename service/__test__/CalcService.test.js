@@ -1,10 +1,7 @@
-const setup = require('../../test/setup.js')
-const index = require('../../index.js')
-const supertest = require('supertest');
+const { getAuthToken } = require('../../test/setup.js')
+const { app } = require('../..');
+const request = require('supertest');
 
-const app = index.app
-const request = supertest.request;
-const getAuthToken = setup.getAuthToken
 
 it('has route handler listening to /calc for post request', async () => {
     const res = await request(app)

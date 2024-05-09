@@ -3,11 +3,10 @@
   "version": "1.0",
   "description": "Just calculator API",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "prestart": "npm install",
     "start": "node index.js",
-    "test": "jest --watchAll --no-cache"
+    "test": "jest   --watchAll --no-cache --maxWorkers=1"
   },
   "jest": {
     "testEnvironment": "node"
