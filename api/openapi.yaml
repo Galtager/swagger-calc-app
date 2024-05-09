@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: Calculator
+  description: Just calculator API
+  version: "1.0"
+servers:
+- url: http://localhost:8080
+tags:
+- name: Simple Calculator
+  description: ""
+paths:
+  /calc:
+    post:
+      operationId: postCalc
+      parameters:
+      - name: op
+        in: header
+        description: The Operation
+        required: true
+        style: simple
+        explode: true
+        schema:
+          $ref: '#/components/schemas/OperationType'
+      requestBody:
+        description: Optional description in *Markdown*
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/calculatorOperation'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/calcResult'
+        "400":
+          description: Invalid request parameters
+        "401":
+          description: Not authorized
+      security:
+      - bearerAuth: []
+      x-swagger-router-controller: Default
+  /auth:
+    post:
+      operationId: postAuth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authBody'
+        required: true
+      responses:
+        "201":
+          description: You are logged in
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/authResult'
+        "400":
+          description: Invalid request parameters
+      x-swagger-router-controller: Default
+components:
+  schemas:
+    calculatorOperation:
+      required:
+      - num1
+      - num2
+      type: object
+      properties:
+        num1:
+          type: number
+          format: float
+        num2:
+          type: number
+          format: float
+    authBody:
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+    calcResult:
+      type: object
+      properties:
+        result:
+          type: number
+          format: float
+      example:
+        result: 0.8008282
+    authResult:
+      type: object
+      properties:
+        message:
+          type: string
+        token:
+          type: string
+      example:
+        message: message
+        token: token
+    OperationType:
+      title: OperationType
+      type: string
+      description: "Possible operators are sum, subtract, multiply, divide, pow"
+      enum:
+      - add
+      - sub
+      - multiply
+      - div
+      - pow
+  responses:
+    UnauthorizedError:
+      description: Not Authorized
+    ValidationError:
+      description: Invalid request parameters
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
